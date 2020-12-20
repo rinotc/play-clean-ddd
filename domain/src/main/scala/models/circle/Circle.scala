@@ -1,4 +1,5 @@
-package dev.tchiba.domain.models.circle
+package dev.tchiba.domain
+package models.circle
 
 case class Circle(
     id: CircleId,

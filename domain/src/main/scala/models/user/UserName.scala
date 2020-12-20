@@ -1,4 +1,5 @@
-package dev.tchiba.domain.models.user
+package dev.tchiba.domain
+package models.user
 
 case class UserName(value: String) {
   require(value.length >= 3, s"ユーザー名は3文字以上です: $value")

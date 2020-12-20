@@ -1,4 +1,5 @@
-package dev.tchiba.domain.models.user
+package dev.tchiba.domain
+package models.user
 
 sealed trait UserType
 

@@ -1,5 +1,3 @@
-idePackagePrefix := Some("dev.tchiba")
-
 lazy val commonSettings = Seq(
   organization := "dev.tchiba",
   version := "0.1",
@@ -22,21 +20,26 @@ lazy val root = (project in file("."))
 lazy val domain = (project in file("domain"))
   .settings(
     commonSettings,
-    name := "play-clean-ddd-domain"
+    name := "play-clean-ddd-domain",
+    idePackagePrefix := Some(
+      "dev.tchiba.domain"
+    ) // https://blog.jetbrains.com/scala/2020/11/26/enhanced-package-prefixes/
   )
 
 lazy val application = (project in file("application"))
   .dependsOn(domain)
   .settings(
     commonSettings,
-    name := "play-clean-ddd-application"
+    name := "play-clean-ddd-application",
+    idePackagePrefix := Some("dev.tchiba.application")
   )
 
 lazy val infrastructure = (project in file("infrastructure"))
   .dependsOn(domain, application)
   .settings(
     commonSettings,
-    name := "play-clean-ddd-application"
+    name := "play-clean-ddd-application",
+    idePackagePrefix := Some("dev.tchiba.infrastructure")
   )
 
 lazy val web = (project in file("web"))
