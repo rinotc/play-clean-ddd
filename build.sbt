@@ -26,12 +26,14 @@ lazy val domain = (project in file("domain"))
   )
 
 lazy val application = (project in file("application"))
+  .dependsOn(domain)
   .settings(
     commonSettings,
     name := "play-clean-ddd-application"
   )
 
 lazy val infrastructure = (project in file("infrastructure"))
+  .dependsOn(domain, application)
   .settings(
     commonSettings,
     name := "play-clean-ddd-application"
@@ -39,6 +41,7 @@ lazy val infrastructure = (project in file("infrastructure"))
 
 lazy val web = (project in file("web"))
   .enablePlugins(PlayScala)
+  .dependsOn(domain, application, infrastructure)
   .settings(
     commonSettings,
     name := "play-clean-ddd-web",
