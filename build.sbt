@@ -1,3 +1,5 @@
+val AIRFRAME_VERSION = "21.5.4"
+
 lazy val commonSettings = Seq(
   organization := "dev.tchiba",
   version := "0.1",
@@ -6,6 +8,10 @@ lazy val commonSettings = Seq(
     "-deprecation",
     "-feature",
     "-Xfatal-warnings"
+  ),
+  libraryDependencies ++= Seq(
+    "org.typelevel"      %% "cats-core"     % "2.3.0",
+    "org.wvlet.airframe" %% "airframe-ulid" % AIRFRAME_VERSION // ULID generator
   )
 )
 

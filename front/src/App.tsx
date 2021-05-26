@@ -6,11 +6,11 @@ import {Layout} from "./components/Layout";
 
 function App() {
   return (
-      <Layout>
-        <BrowserRouter>
+      <BrowserRouter>
+        <Layout>
           <Route exact path={"/"} component={Home} />
-        </BrowserRouter>
-      </Layout>
+        </Layout>
+      </BrowserRouter>
   );
 }
 

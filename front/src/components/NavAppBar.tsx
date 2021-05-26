@@ -1,6 +1,7 @@
 import React from "react";
 import {AppBar, Button, IconButton, makeStyles, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu"
+import { Link } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,9 @@ export function NavAppBar() {
             <Typography variant={"h6"} className={classes.title}>
               Introduction to DDD
             </Typography>
-            <Button color={"inherit"}>Login</Button>
+            <Button color={"inherit"}><Link to={"/"} color={"inherit"}>Home</Link></Button>
+            <Button color={"inherit"}>Circle</Button>
+            <Button color={"inherit"}>User</Button>
           </Toolbar>
         </AppBar>
       </div>

@@ -1,4 +1,0 @@
-package dev.tchiba.domain
-package models.circle
-
-case class CircleName(value: String) extends AnyVal
