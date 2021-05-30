@@ -1,3 +1,4 @@
+package dev.tchiba.ddd.web
 package controllers
 
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents}

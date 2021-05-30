@@ -1,4 +1,4 @@
-package dev.tchiba.domain
+package dev.tchiba.ddd.domain
 package models.entities.user
 
 import models.entities.EntityId

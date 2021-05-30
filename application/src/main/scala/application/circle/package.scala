@@ -1,4 +1,4 @@
-package dev.tchiba.application
+package dev.tchiba.ddd.application
 package application
 
-package object circle {}
+package object application {}

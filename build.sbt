@@ -27,32 +27,36 @@ lazy val domain = (project in file("domain"))
   .settings(
     commonSettings,
     name := "play-clean-ddd-domain",
-    idePackagePrefix := Some(
-      "dev.tchiba.domain"
-    ) // https://blog.jetbrains.com/scala/2020/11/26/enhanced-package-prefixes/
+    // https://blog.jetbrains.com/scala/2020/11/26/enhanced-package-prefixes/
+    idePackagePrefix := Some("dev.tchiba.ddd.domain"),
+    libraryDependencies ++= Seq(
+      "org.wvlet.airframe" %% "airframe" % "21.5.4"
+    )
   )
 
 lazy val application = (project in file("application"))
   .dependsOn(domain)
   .settings(
     commonSettings,
-    name := "play-clean-ddd-application",
-    idePackagePrefix := Some("dev.tchiba.application")
+    idePackagePrefix := Some("dev.tchiba.ddd.application"),
+    name := "play-clean-ddd-application"
   )
 
 lazy val infrastructure = (project in file("infrastructure"))
   .dependsOn(domain, application)
   .settings(
     commonSettings,
-    name := "play-clean-ddd-application",
-    idePackagePrefix := Some("dev.tchiba.infrastructure")
+    idePackagePrefix := Some("dev.tchiba.ddd.infrastructure"),
+    name := "play-clean-ddd-infrastructure"
   )
 
 lazy val web = (project in file("web"))
   .enablePlugins(PlayScala)
-  .dependsOn(domain, application, infrastructure)
+  .dependsOn(domain)
+  .aggregate(domain)
   .settings(
     commonSettings,
+    idePackagePrefix := Some("dev.tchiba.ddd.web"),
     name := "play-clean-ddd-web",
     libraryDependencies ++= Seq(
       guice,

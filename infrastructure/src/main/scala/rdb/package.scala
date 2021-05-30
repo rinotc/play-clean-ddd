@@ -1,3 +1,3 @@
-package dev.tchiba.infrastructure
+package dev.tchiba.ddd.infrastructure
 
-package object rdb {}
+package object infrastructure {}

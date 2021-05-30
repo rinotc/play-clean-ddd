@@ -1,0 +1,3 @@
+GET         /             dev.tchiba.ddd.web.controllers.HomeController.index
+
+POST        /users        dev.tchiba.ddd.web.controllers.user.UserController.add
