@@ -1,66 +1,53 @@
-val AIRFRAME_VERSION = "21.5.4"
-
-lazy val commonSettings = Seq(
-  organization := "dev.tchiba",
-  version := "0.1",
-  scalaVersion := "2.13.4",
-  scalacOptions := Seq(
-    "-deprecation",
-    "-feature",
-    "-Xfatal-warnings"
-  ),
-  libraryDependencies ++= Seq(
-    "org.typelevel"      %% "cats-core"     % "2.3.0",
-    "org.wvlet.airframe" %% "airframe-ulid" % AIRFRAME_VERSION // ULID generator
-  )
+ThisBuild / organization := "dev.tchiba"
+ThisBuild / version := "0.1"
+ThisBuild / scalaVersion := "2.13.6"
+ThisBuild / scalacOptions := Seq(
+  "-deprecation",
+  "-feature"
 )
 
-lazy val root = (project in file("."))
-  .aggregate(domain, application, infrastructure, web)
+lazy val guiceLibraries = Seq(
+  "com.google.inject" % "guice"       % "5.0.1",
+  "net.codingwell"   %% "scala-guice" % "4.2.6"
+)
+
+lazy val di = (project in file("di"))
+  .dependsOn(domain, application, infrastructure, web)
   .settings(
-    commonSettings,
-    name := "play-clean-ddd",
-    publishArtifact := false
+    libraryDependencies ++= guiceLibraries
   )
 
 lazy val domain = (project in file("domain"))
   .settings(
-    commonSettings,
     name := "play-clean-ddd-domain",
-    // https://blog.jetbrains.com/scala/2020/11/26/enhanced-package-prefixes/
-    idePackagePrefix := Some("dev.tchiba.ddd.domain"),
     libraryDependencies ++= Seq(
-      "org.wvlet.airframe" %% "airframe" % "21.5.4"
+      "org.scalatest" %% "scalatest" % "3.2.9" % Test
     )
   )
 
 lazy val application = (project in file("application"))
   .dependsOn(domain)
   .settings(
-    commonSettings,
-    idePackagePrefix := Some("dev.tchiba.ddd.application"),
-    name := "play-clean-ddd-application"
+    name := "play-clean-ddd-application",
+    libraryDependencies ++= Seq(
+      "org.typelevel" %% "cats-core" % "2.3.0"
+    ) ++ guiceLibraries
   )
 
 lazy val infrastructure = (project in file("infrastructure"))
   .dependsOn(domain, application)
   .settings(
-    commonSettings,
-    idePackagePrefix := Some("dev.tchiba.ddd.infrastructure"),
-    name := "play-clean-ddd-infrastructure"
+    name := "play-clean-ddd-infrastructure",
+    libraryDependencies ++= Seq() ++ guiceLibraries
   )
 
 lazy val web = (project in file("web"))
   .enablePlugins(PlayScala)
-  .dependsOn(domain)
-  .aggregate(domain)
+  .dependsOn(domain, application)
   .settings(
-    commonSettings,
-    idePackagePrefix := Some("dev.tchiba.ddd.web"),
     name := "play-clean-ddd-web",
     libraryDependencies ++= Seq(
       guice,
-      "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test,
-      "net.codingwell"         %% "scala-guice"        % "4.2.6"
-    )
+      "org.scalatestplus.play" %% "scalatestplus-play" % "5.0.0" % Test
+    ) ++ guiceLibraries
   )

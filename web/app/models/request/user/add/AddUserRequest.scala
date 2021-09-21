@@ -1,6 +1,4 @@
-package dev.tchiba.ddd
-package web.models
-package request.user.add
+package models.request.user.add
 
 import dev.tchiba.ddd.domain.models.entities.user.UserRepository
 import dev.tchiba.ddd.domain.models.valueObjects.person.FullName

@@ -1,9 +1,8 @@
-package dev.tchiba.ddd
-package web.controllers.user
+package controllers.user
 
 import dev.tchiba.ddd.domain.models.entities.user.{User, UserId, UserRepository}
 import dev.tchiba.ddd.domain.models.valueObjects.person.FullName
-import dev.tchiba.ddd.web.models.request.user.add.AddUserRequest
+import models.request.user.add.AddUserRequest
 import play.api.mvc.{AbstractController, Action, ControllerComponents}
 
 import javax.inject.Inject
