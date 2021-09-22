@@ -12,7 +12,7 @@ lazy val guiceLibraries = Seq(
 )
 
 lazy val di = (project in file("di"))
-  .dependsOn(domain, application, infrastructure, web)
+  .dependsOn(domain, application, infrastructure)
   .settings(
     libraryDependencies ++= guiceLibraries
   )
@@ -38,13 +38,19 @@ lazy val infrastructure = (project in file("infrastructure"))
   .dependsOn(domain, application)
   .settings(
     name := "play-clean-ddd-infrastructure",
-    libraryDependencies ++= Seq() ++ guiceLibraries
+    libraryDependencies ++= Seq(
+      "com.typesafe.slick" %% "slick"          % "3.3.3",
+      "org.slf4j"           % "slf4j-nop"      % "1.6.4",
+      "com.typesafe.slick" %% "slick-hikaricp" % "3.3.3",
+      "org.postgresql"      % "postgresql"     % "42.2.23"
+    ) ++ guiceLibraries
   )
 
 lazy val web = (project in file("web"))
   .enablePlugins(PlayScala)
-  .dependsOn(domain, application)
+  .dependsOn(di)
   .settings(
+    PlayKeys.fileWatchService := play.dev.filewatch.FileWatchService.jdk7(play.sbt.run.toLoggerProxy(sLog.value)),
     name := "play-clean-ddd-web",
     libraryDependencies ++= Seq(
       guice,
