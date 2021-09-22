@@ -7,5 +7,7 @@ import scala.concurrent.Future
 
 trait UserRepository extends Repository[User] {
 
+  def find(id: UserId): Future[Option[User]]
+
   def add(user: User): Future[UserId]
 }

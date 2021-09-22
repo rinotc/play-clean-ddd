@@ -1,3 +1,4 @@
-GET         /             controllers.HomeController.index
+GET         /                     controllers.HomeController.index
 
-POST        /users        controllers.user.UserController.add
+POST        /users                controllers.user.UserController.add
+GET         /users/:userId        controllers.user.UserController.find(userId: java.util.UUID)
