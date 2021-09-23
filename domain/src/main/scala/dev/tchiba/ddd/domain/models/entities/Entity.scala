@@ -3,6 +3,13 @@ package dev.tchiba.ddd.domain.models.entities
 /**
  * DDDのエンティティの責務を表現する `trait`
  *
+ * ==エンティティの特徴==
+ * <ul>
+ *   <li>可変である</li>
+ *   <li>同じ属性であっても区別される</li>
+ *   <li>同一性により区別される</li>
+ * </ul>
+ *
  * @example
  * {{{
  *   case class SampleId(value: UUID) extends EntityId[UUID]
@@ -28,5 +35,9 @@ trait Entity[ID <: EntityId[_]] {
     case _               => false
   }
 
+  // 31を掛ける理由は、Effective Java第3版ではp.54に載っている。
+  // > 乗数31は、それが奇数の素数なので選ばれています。もし、その乗数が偶数で乗算がオーバーフローしたら、
+  // > 2を掛けることはシフトすることと同じなので情報が失われます。素数を使う利点はあまり明確ではありませんが、素数が伝統的です。
+  // > 31の素晴らしい特性は、良いパフォーマンスを得るために、アーキテクチャによって乗算がシフトと減算に置き換えられることです。
   override def hashCode(): Int = 31 * id.##
 }
