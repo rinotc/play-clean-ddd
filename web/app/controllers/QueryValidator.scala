@@ -13,4 +13,11 @@ object QueryValidator {
       case Success(value)     => g(value)
     }
   }
+
+  def sync[R](f: => R)(g: R => Result): Result = {
+    Try(f) match {
+      case Failure(exception) => BadRequest(exception.getMessage)
+      case Success(value)     => g(value)
+    }
+  }
 }
