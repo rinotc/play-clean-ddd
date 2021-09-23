@@ -1,7 +1,7 @@
-openapi: "3.0.3"
+openapi: 3.0.3
 info:
   title: Play moduler monolith API
-  version: "1.0"
+  version: '1.0'
 servers:
   - url: http://localhost:9000/
     description: local
@@ -15,6 +15,132 @@ paths:
       tags:
         - users
       summary: get users
+      description: returns an array of user model
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: page
+        - in: query
+          name: perPage
+          schema:
+            type: integer
+          description: number of users per page
       responses:
         '200':
-          description: OK
+          description: array of ListUserResponse model
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ListUserResponse'
+    post:
+      tags:
+        - users
+      summary: add user
+      description: add user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddUserRequest'
+      responses:
+        '200':
+          description: new user id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddUserResponse'
+
+  /users/{userId}:
+    get:
+      tags:
+        - users
+      summary: find user by user id
+      description: find user by user id
+      parameters:
+        - in: path
+          name: userId
+          description: data type is uuid.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successded in finding
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUserResponse'
+        '404':
+          description: not found user
+
+
+components:
+  schemas:
+    ListUserResponse:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          description: user id. data type is uuid
+          example: 5149c218-79cb-4ea8-8641-2ce3b8d8c87f
+        firstName:
+          type: string
+          description: first name of user
+          example: 太郎
+        lastName:
+          type: string
+          description: last name of user
+          example: 田中
+
+    AddUserRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+          description: first name of user
+          example: 太郎
+        lastName:
+          type: string
+          description: last name of user
+          example: 田中
+
+    AddUserResponse:
+      type: object
+      required:
+        - newUserId
+      properties:
+        newUserId:
+          type: string
+          description: user id. data type is uuid
+          example: 5149c218-79cb-4ea8-8641-2ce3b8d8c87f
+
+    FindUserResponse:
+      type: object
+      required:
+        - id
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          description: user id. data type is uuid
+          example: 5149c218-79cb-4ea8-8641-2ce3b8d8c87f
+        firstName:
+          type: string
+          description: first name of user
+          example: 太郎
+        lastName:
+          type: string
+          description: last name of user
+          example: 田中
