@@ -4,7 +4,7 @@ Clean Architecture ベースのPlayFramework モノリス。依存方向をbuild
 
 ## 依存関係
 
-![architecture](architecture.drawio)
+![architecture](architecture.drawio.svg)
 
 ## テスト用データベース
 
