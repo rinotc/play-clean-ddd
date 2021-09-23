@@ -8,8 +8,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ListUsersInteractor @Inject() (userRepository: UserRepository)(implicit ec: ExecutionContext)
     extends ListUsersUseCase {
+
   override def handle(input: ListUsersInput): Future[ListUsersOutput] = {
-    println(input.pagination.offset)
     userRepository.list(input.pagination).map { users => ListUsersOutput.Success(users) }
   }
 }

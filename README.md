@@ -1,6 +1,10 @@
 # play-clean-ddd
 
-Clean Architecture ベースのモジュール化した実装サンプル。
+Clean Architecture ベースのPlayFramework モノリス。依存方向をbuild.sbtで制御している。
+
+## 依存関係
+
+![architecture](architecture.drawio)
 
 ## テスト用データベース
 
