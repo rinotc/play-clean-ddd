@@ -1,4 +1,5 @@
 GET         /                     controllers.HomeController.index
 
+GET         /users                controllers.user.UserController.list(page: Int ?= 1, perPage: Int ?= 50)
 POST        /users                controllers.user.UserController.add
 GET         /users/:userId        controllers.user.UserController.find(userId: java.util.UUID)
