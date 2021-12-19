@@ -21,4 +21,16 @@ trait JsonValidator {
       }
     }
   }
+
+  def jsonValidate[A: Reads](implicit parsers: PlayBodyParsers, ec: ExecutionContext): BodyParser[A] = {
+    parsers.json.validate[A] { jsValue =>
+      Try(jsValue.validate[A]) match {
+        case Success(value) => value.asEither.left.map { _ => BadRequest(Json.toJson("parse error")) }
+        case Failure(e) =>
+          e match {
+            case e: RequestValidationError => Left(BadRequest(Json.toJson(e.message)))
+          }
+      }
+    }
+  }
 }
