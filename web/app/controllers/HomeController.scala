@@ -9,6 +9,6 @@ class HomeController @Inject() (cc: ControllerComponents)(implicit ec: Execution
     extends AbstractController(cc) {
 
   def index: Action[AnyContent] = Action {
-    Ok
+    Ok("Hello World")
   }
 }
